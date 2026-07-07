@@ -1,39 +1,29 @@
-# Long's Homelab
+Long's Enterprise Homelab
 
-Enterprise-inspired self-hosted infrastructure built for learning, security research, monitoring, and automation.
+Enterprise-inspired self-hosted infrastructure focused on
+security, automation, monitoring, and infrastructure engineering.
 
-## Infrastructure
+Current Status
 
-- UCG-Fiber
-- Proxmox VE
-- TrueNAS SCALE
-- Raspberry Pi 5
-- Cloudflare
-- Docker
-- Ubuntu
-- UniFi
+✔ Raspberry Pi 5 Infrastructure Node
+✔ Docker Engine
+✔ Homepage
+⏳ Portainer
+⏳ Pi-hole
+⏳ Uptime Kuma
 
-## Services
+Architecture
 
-- Homepage
-- Uptime Kuma
-- Grafana
-- AdGuard Home
-- Vaultwarden
-- Immich
-- Jellyfin
-- Ollama/Open WebUI
-- Nextcloud
+[diagram]
 
-## Goals
+Documentation
 
-- Infrastructure as Code
-- Monitoring
-- Disaster Recovery
-- Documentation
-- Self-hosted AI
-- Secure Remote Access
+- Infrastructure
+- Networking
+- Hardware
+- Proxmox
+- TrueNAS
 
-## Documentation
+Roadmap
 
-See the docs folder.
+...
