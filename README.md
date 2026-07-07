@@ -5,24 +5,52 @@ security, automation, monitoring, and infrastructure engineering.
 
 # Current Infrastructure
 
-## Hardware
+## Network
 - UCG Fiber
+- UniFi
+
+## Compute
 - Raspberry Pi 5 (Infra01)
 - Dell OptiPlex 3050 (Proxmox)
 - TrueNAS SCALE
 
-## Current Services
+---
 
-### Infra01
-- Homepage ✅
+# Current Services
 
-### TrueNAS SCALE
-- Immich ✅
-- Jellyfin ✅
-- Ollama/Open WebUI ✅ (if it's still hosted there)
-- Any other apps you already have running
+## Infra01
+- Homepage
+
+## TrueNAS SCALE
+- Immich
+- Jellyfin
+- Jellystat
+- Nextcloud
+- Vaultwarden
+- Firefly III
+- Cloudflared
+- Cloudflared (Immich)
+- Cloudflared (Jellyfin)
+- Cloudflared (Vaultwarden)
+
+## Virtual Machines
 
 ### Proxmox
-- Kali Linux VM ✅
-- Home Assistant (when deployed)
-...
+- Kali Linux
+
+### TrueNAS
+- Ubuntu LLM Server
+
+---
+
+# Planned Services
+
+## Infra01
+- Portainer
+- Uptime Kuma
+- Pi-hole
+
+## Future
+- Grafana (optional)
+- Prometheus (optional)
+- Loki (optional)
