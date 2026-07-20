@@ -1,0 +1,28 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/info-widgets/
+
+- greeting:
+    text_size: xl
+    text: Homelab
+
+- resources:
+    label: Infra01
+    cpu: true
+    memory: true
+    cputemp: true
+    uptime: true
+    network: true
+    units: metric
+    refresh: 5000
+
+- datetime:
+    text_size: md
+    format:
+      dateStyle: long
+      timeStyle: short
+      hour12: true
+
+- search:
+    provider: google
+    target: _blank

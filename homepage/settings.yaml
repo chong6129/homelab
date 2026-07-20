@@ -1,0 +1,30 @@
+
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings/
+
+title: Infrastructure
+
+theme: dark
+color: slate
+headerStyle: clean
+
+statusStyle: dot
+useEqualHeights: true
+showStats: true
+hideVersion: true
+disableIndexing: true
+
+layout:
+  Infrastructure:
+    style: row
+    columns: 3
+  Core Services:
+    style: row
+    columns: 4
+  Security & Administration:
+    style: row
+    columns: 4
+  Documentation:
+    style: row
+    columns: 3

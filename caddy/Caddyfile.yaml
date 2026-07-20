@@ -1,0 +1,34 @@
+
+homepage.longn.ca {
+        tls internal
+        reverse_proxy 10.10.10.163:3000
+}
+
+portainer.longn.ca {
+        tls internal
+        reverse_proxy 10.10.10.163:9000
+}
+
+uptime.longn.ca {
+        tls internal
+        reverse_proxy 10.10.10.163:3001
+}
+
+jellyfin.longn.ca {
+        tls internal
+        reverse_proxy 10.10.10.254:30013
+}
+
+immich.longn.ca {
+        tls internal
+        reverse_proxy 10.10.10.254:30041
+}
+
+nc.longn.ca {
+        tls internal
+        reverse_proxy 10.10.10.254:30027
+}
+
+vaultwarden.longn.ca {
+        tls internal
+        reverse_proxy 10.10.10.254:30032

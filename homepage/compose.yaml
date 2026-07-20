@@ -1,0 +1,22 @@
+
+services:
+  Infrastructure:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - /opt/docker/homepage/config:/app/config
+      - /opt/docker/homepage/icons:/app/public/icons
+      - /opt/docker/homepage/logs:/app/logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: "homepage.longn.ca"
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    external: true
+

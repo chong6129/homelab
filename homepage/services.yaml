@@ -1,0 +1,68 @@
+
+- Infrastructure:
+    - UCG Fiber:
+        href: https://10.10.10.1
+        description: UniFi gateway and network management
+        icon: unifi.png
+    - Proxmox VE:
+        href: https://10.10.10.2:8006/
+        description: OptiPlex 3050 virtualization host
+        icon: proxmox.png
+    - TrueNAS SCALE:
+        href: http://10.10.10.254/ui/signin
+        description: Storage, backups, and shared services
+        icon: truenas.png
+    - AdGuard Home:
+        href: http://10.10.10.3
+        description: DNS filtering & protection
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/adguard-home>
+    - Caddy:
+        href: http://10.10.10.4
+        description: Reverse Proxy
+        icon: caddy.png
+    - Homepage:
+        href: http://homepage.longn.ca
+        description: Services organization
+        icon: homepage.png
+
+- Applications:
+    - Portainer:
+        href: http://192.168.1.148:9000
+        description: Docker management
+        icon: portainer.png
+
+- Monitoring:
+    - Uptime Kuma:
+        href: http://10.10.10.163:3001
+        description: Service monitoring and status checks
+        icon: uptime-kuma.png
+
+- Labs:
+    - Kali VM:
+        href: https://192.168.1.X:8006
+        description: Security testing VM on Proxmox
+        icon: kali-linux.png
+
+- Future:
+    - Authentik:
+        description: Planned identity and SSO platform
+        icon: authentik.png
+
+    - Grafana:
+        description: Planned metrics dashboard
+        icon: grafana.png
+
+    - Prometheus:
+        description: Planned metrics collection
+        icon: prometheus.png
+
+    - Wazuh:
+        description: Planned security monitoring platform
+        icon: wazuh.png
+
+    - Paperless-ngx:
+        description: Planned document management platform
+        icon: paperless-ngx.png
+
+    - Linkwarden:
+        description: Planned bookmark and knowledge archive
