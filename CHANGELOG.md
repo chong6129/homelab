@@ -1,7 +1,3 @@
-
-And update your roadmap:
-
-```markdown
 # Homelab Roadmap
 
 ## Foundation
@@ -13,12 +9,18 @@ And update your roadmap:
 - [x] Portainer
 - [x] Uptime Kuma
 - [x] AdGuard Home
-- [ ] Network-wide AdGuard deployment
+- [x] Network-wide AdGuard deployment
+
+## Core Infrastructure
+
+- [x] Internal DNS naming
+- [x] Caddy reverse proxy
+- [x] Internal TLS (Caddy)
+- [x] Reverse proxy for core services
 
 ## Identity and Access
 
-- [ ] Internal DNS naming
-- [ ] Caddy reverse proxy
+- [ ] Internal PKI (optional)
 - [ ] Authentik
 - [ ] Initial SSO integration
 - [ ] Expand SSO to supported services
@@ -32,6 +34,24 @@ And update your roadmap:
 
 ## Applications
 
+- [x] Jellyfin
+- [ ] Immich
+- [ ] Nextcloud
+- [ ] Vaultwarden
 - [ ] Paperless-ngx
 - [ ] Linkwarden
 - [ ] Joplin Server
+
+## Infrastructure Automation
+
+- [ ] Docker Compose repository
+- [ ] Configuration backups (Git)
+- [ ] Automated config backup script
+- [ ] Infrastructure restore documentation
+
+## Future
+
+- [ ] External HTTPS migration
+- [ ] Wildcard certificates
+- [ ] High Availability
+- [ ] Off-site backups

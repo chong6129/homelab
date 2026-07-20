@@ -2,10 +2,19 @@
 
 ## DNS Re-writes
 
-- [ ] homepage.longn.ca
-- [ ] portainer.longn.ca
-- [ ] uptime.longn.ca
-- [ ] jellyfin.longn.ca
-- [ ] immich.longn.ca
-- [ ] nc.longn.ca
-- [ ] vaultwarden.longn.ca
+- [x] homepage.longn.ca
+- [x] portainer.longn.ca
+- [x] uptime.longn.ca
+- [x] jellyfin.longn.ca
+- [x] immich.longn.ca
+- [x] nc.longn.ca
+- [x] vaultwarden.longn.ca
+
+## Future
+
+- [ ] authentik.longn.ca
+- [ ] grafana.longn.ca
+- [ ] prometheus.longn.ca
+- [ ] paperless.longn.ca
+- [ ] linkwarden.longn.ca
+- [ ] wazuh.longn.ca
