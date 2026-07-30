@@ -54,3 +54,25 @@ security, automation, monitoring, and infrastructure engineering.
 - Grafana (optional)
 - Prometheus (optional)
 - Loki (optional)
+
+Ubuntu LLM VM
+-------------
+Username: chong
+Password: (stored in Bitwarden)
+
+GPU:
+- GTX1070
+- Audio Function
+- CPU Mode: Host Passthrough
+
+Static IP:
+10.10.10.219
+
+SSH Enabled
+
+CUDA Version:
+...
+
+Ollama
+Open WebUI
+...
