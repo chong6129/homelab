@@ -55,3 +55,20 @@
 - [ ] Wildcard certificates
 - [ ] High Availability
 - [ ] Off-site backups
+
+## 2026-07-30
+
+### Added
+- Modular Caddy configuration
+- Reusable Cloudflare TLS snippet
+- Individual site configuration files
+
+### Changed
+- Split monolithic Caddyfile into modular structure
+- Improved maintainability of reverse proxy configuration
+
+### Fixed
+- Homepage reverse proxy configuration
+- Nextcloud HTTPS redirect issue
+- Nextcloud trusted proxy configuration
+- Secure cookie handling
