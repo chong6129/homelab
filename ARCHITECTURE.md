@@ -1315,3 +1315,32 @@ docs(architecture): update service inventory
 - [ ] UPS design
 - [ ] Disaster-recovery test schedule
 - [ ] Monitoring and alert notification channels
+
+                    ┌───────────────────────┐
+                    │      UCG-Fiber        │
+                    │ Gateway / VLANs / DNS │
+                    └───────────┬───────────┘
+                                │
+              ┌─────────────────┼─────────────────┐
+              │                 │                 │
+       ┌──────▼──────┐   ┌──────▼──────┐   ┌─────▼─────────┐
+       │   Infra01   │   │   TrueNAS   │   │    Proxmox    │
+       │ Raspberry   │   │    SCALE    │   │ OptiPlex 3050 │
+       │    Pi 5     │   │             │   │               │
+       └─────────────┘   └──────┬──────┘   └───────────────┘
+                                │
+                    ┌───────────┴───────────┐
+                    │                       │
+              Docker Apps              UbuntuLLM VM
+                    │                       │
+          ┌─────────┴────────┐       GTX 1070 Passthrough
+          │                  │              │
+       Immich          Media Stack      ┌───┴────────────┐
+          │                  │          │ Ollama         │
+          │           Sonarr/Radarr     │ Open WebUI     │
+          │           qBittorrent       │ Immich ML CUDA │
+          │                  │          └───────▲────────┘
+          │          /media-data                │
+          │          Hardlinks                  │
+          └─────────────────────────────────────┘
+                         TCP/3003
