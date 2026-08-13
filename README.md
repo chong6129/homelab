@@ -76,3 +76,71 @@ CUDA Version:
 Ollama
 Open WebUI
 ...
+Internet
+      │
+Cloudflare DNS
+      │
+Caddy Reverse Proxy
+      │
+──────────────────────────────
+Homepage
+Jellyfin
+Immich
+Vaultwarden
+Nextcloud
+Portainer
+Uptime Kuma
+
+Future Roadmap
+Foundation
+──────────
+✓ Docker
+✓ Cloudflare
+✓ Caddy
+✓ TLS
+✓ Reverse Proxy
+✓ Split DNS
+
+Identity
+────────
+□ Authentik
+□ SSO
+□ MFA
+
+Monitoring
+──────────
+□ Grafana
+□ Prometheus
+□ Loki
+
+Security
+────────
+□ Wazuh
+□ CrowdSec
+□ Fail2Ban
+
+Automation
+──────────
+□ Ansible
+□ GitHub Actions
+□ Automatic backups
+
+##Roadmap - 07/30/2026
+
+✔ Infrastructure
+✔ Cloudflare
+✔ Caddy
+✔ HTTPS
+✔ Split DNS
+✔ Docker Apps
+
+⬇
+
+1. Authentik
+2. Jellyseerr + Arr stack
+3. Immich AI
+4. Grafana/Prometheus
+5. Wazuh
+6. CrowdSec
+7. Paperless
+8. Automation
