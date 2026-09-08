@@ -15,6 +15,10 @@ default-deny model toward trusted and infrastructure networks.
 | Direction | Trusted LAN to VLAN 66 |
 | Purpose | Restricted administration of the Windows sandbox |
 
+UniFi has **Auto Allow Return Traffic** enabled for this policy. It generates a
+stateful companion rule from source `10.66.6.115:3389` back to destination
+`10.10.10.115`; this is not a second unrestricted management exception.
+
 This exception is intentionally host-specific and service-specific. It does
 not permit general trusted-LAN access to VLAN 66, and it does not allow VLAN 66
 to initiate connections to the trusted LAN.
@@ -28,3 +32,9 @@ to initiate connections to the trusted LAN.
   the RDP management exception above.
 
 The exception and the surrounding isolation policy have both been tested.
+
+## Gateway Management Protection
+
+`Security-Lab - Block Gateway Management` blocks all IPv4 protocols from the
+Security-Lab network to the Gateway zone. It applies at all times and has
+syslog logging enabled.

@@ -10,8 +10,6 @@ identity, monitoring, and GPU-accelerated AI workloads.
 
 ## Architecture Overview
 
-> Insert current architecture diagram here.
-
 The environment consists of four primary compute platforms:
 
 | Platform | Primary Role |
@@ -47,21 +45,24 @@ The primary trusted LAN uses:
 
     10.10.10.0/24
 
+The active physical backbone is UCG Fiber SFP+ port 7 to Bell at 10 GbE,
+SFP+ port 6 directly to TrueNAS at 10 GbE, and UCG port 3 to the 2.5 GbE PoE
+access switch. The access switch connects both APs, Proxmox, Infra02, and the
+downstream five-port switch. See [network/topology.md](network/topology.md).
+
 ---
 
 ## VLAN Segmentation
 
 | VLAN | Purpose |
 |---|---|
-| LAN | Trusted client devices |
-| VLAN 10 | Infrastructure |
+| VLAN 1 | Default/trusted network |
 | VLAN 30 | IoT |
-| VLAN 40 | Guest |
-| VLAN 50 | Servers |
 | VLAN 66 | Isolated security lab |
 
-Segmentation separates infrastructure, servers, untrusted IoT devices,
-guest devices, and trusted clients.
+Only these three networks are currently deployed. IoT is separated by VLAN,
+but its network-isolation control is currently disabled. VLAN 66 is isolated
+and has a separate gateway-management block policy.
 
 Inter-VLAN communication is controlled at the gateway.
 
@@ -138,9 +139,12 @@ TrueNAS is the primary storage and application platform.
 - Immich
 - Jellyfin
 - Jellystat
-- Nextcloud
 - Vaultwarden
-- Firefly III
+- Jellyseerr
+- Jellystat
+- Jackett
+- Bazarr
+- FlareSolverr
 - Sonarr
 - Radarr
 - Prowlarr
@@ -180,7 +184,7 @@ applications to the same paths.
 
 The automated media stack uses a unified dataset:
 
-    /mnt/everything/media-data
+    /mnt/staging/media-data
 
 Layout:
 
@@ -207,7 +211,7 @@ Sonarr, Radarr, and qBittorrent share the same container-side `/data`
 filesystem hierarchy.
 
     Host
-    /mnt/everything/media-data
+    /mnt/staging/media-data
                 │
                 ▼
     Container
@@ -530,19 +534,30 @@ infrastructure.
        ▼
     Caddy / Cloudflare Tunnel
        │
-       ├── Homepage
        ├── Jellyfin
        ├── Immich
        ├── Vaultwarden
-       ├── Nextcloud
-       ├── Portainer
-       ├── Uptime Kuma
+       ├── Jellyseerr
+       ├── Jellystat
+       ├── Grafana through Authentik
        └── Authentik
 
 HTTPS/TLS is used for externally accessible services.
 
 Split DNS allows internal clients to reach services using the same
 hostnames without unnecessarily traversing external infrastructure.
+
+Verified Cloudflare origins:
+
+| Public hostname | Internal origin |
+|---|---|
+| `jellyfin.longn.ca` | `http://10.10.10.254:30013` |
+| `imm.longn.ca` | `https://10.10.10.254:30041` |
+| `vaultwarden.longn.ca` | `http://10.10.10.254:30032` |
+| `flix.longn.ca` | `http://10.10.10.254:5055` |
+| `jellystat.longn.ca` | `http://10.10.10.254:30176` |
+| `grafana.longn.ca` | Authentik on `10.10.10.163:9002` |
+| `auth.longn.ca` | Authentik on `10.10.10.163:9002` |
 
 ---
 
@@ -552,10 +567,8 @@ Security controls currently implemented include:
 
 - VLAN segmentation
 - Trusted/untrusted network separation
-- Dedicated infrastructure VLAN
-- Dedicated server VLAN
-- IoT isolation
-- Guest isolation
+- Dedicated IoT VLAN
+- Security-Lab isolation
 - HTTPS/TLS
 - Reverse proxy
 - Split DNS
@@ -683,5 +696,7 @@ than deployed as isolated applications.
 - `infrastructure/` — physical systems and host roles
 - `network/` — network configuration and documentation
 - `docker/` — container configuration
+- [TrueNAS](infrastructure/truenas.md) — storage, applications, and mounts
+- [Network topology](network/topology.md) — verified physical and VLAN paths
 - `diagrams/` — architecture diagrams
 - `scripts/` — administration and automation

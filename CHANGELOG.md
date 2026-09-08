@@ -44,6 +44,23 @@ maintenance, package updates, or minor configuration changes.
   exercises, continuity, and result interpretation.
 - Retained this repository as the authoritative source for validated lab state.
 
+### Documentation and Configuration Inventory
+
+- Reconciled the documentation with the live UniFi configuration: Default
+  VLAN 1, IoT VLAN 30, and isolated Security-Lab VLAN 66 are the only active
+  networks.
+- Documented the 10 GbE Bell and TrueNAS links, 2.5 GbE switching topology,
+  access points, Proxmox trunk, and the retired Home Assistant instance.
+- Recorded the Security-Lab gateway-management block, the narrow desktop-to-
+  `winSB` RDP exception, and UniFi's automatically generated return policy.
+- Replaced obsolete `/mnt/everything/media-data` references with the current
+  `/mnt/staging/media-data` dataset and documented the active ZFS hierarchy.
+- Inventoried the running TrueNAS, Infra01, and Infra02 containers, persistent
+  mounts, published ports, and verified Cloudflare application origins.
+- Added sanitized Compose references for the TrueNAS media stack, Infra01 core
+  and Authentik services, Infra02 monitoring, and Node Exporter. Secrets and
+  TrueNAS-generated credentials remain excluded from Git.
+
 ---
 
 ## 2026-09-07 — Infra02 Monitoring Migration

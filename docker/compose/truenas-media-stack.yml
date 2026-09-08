@@ -1,0 +1,92 @@
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    restart: unless-stopped
+    environment:
+      PUID: "568"
+      PGID: "568"
+      TZ: America/Toronto
+    ports: ["6767:6767"]
+    volumes:
+      - /mnt/protected/appdata/bazarr:/config
+      - /mnt/staging/media-data:/data
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    restart: unless-stopped
+    environment:
+      CAPTCHA_SOLVER: none
+      LOG_HTML: "false"
+      LOG_LEVEL: info
+      TZ: America/Toronto
+    ports: ["8191:8191"]
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    restart: unless-stopped
+    cap_add: [NET_ADMIN]
+    devices: ["/dev/net/tun:/dev/net/tun"]
+    environment:
+      VPN_SERVICE_PROVIDER: nordvpn
+      SERVER_COUNTRIES: Canada
+      OPENVPN_PROTOCOL: udp
+      OPENVPN_USER: ${OPENVPN_USER}
+      OPENVPN_PASSWORD: ${OPENVPN_PASSWORD}
+      FIREWALL_INPUT_PORTS: "8080"
+      TZ: America/Toronto
+    ports:
+      - "8080:8080"
+      - "6881:6881/tcp"
+      - "6881:6881/udp"
+    volumes:
+      - /mnt/protected/appdata/gluetun:/gluetun
+  jellyseerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    restart: unless-stopped
+    init: true
+    environment:
+      LOG_LEVEL: info
+      PORT: "5055"
+      TZ: America/Toronto
+    ports: ["5055:5055"]
+    volumes:
+      - /mnt/protected/appdata/jellyseerr:/app/config
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    restart: unless-stopped
+    environment: &lsio-env
+      PUID: "568"
+      PGID: "568"
+      TZ: America/Toronto
+    ports: ["9696:9696"]
+    volumes:
+      - /mnt/protected/appdata/prowlarr:/config
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    restart: unless-stopped
+    network_mode: service:gluetun
+    depends_on:
+      gluetun:
+        condition: service_started
+    environment:
+      <<: *lsio-env
+      WEBUI_PORT: "8080"
+      TORRENTING_PORT: "6881"
+    volumes:
+      - /mnt/protected/appdata/qBittorrent:/config
+      - /mnt/staging/media-data:/data
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    restart: unless-stopped
+    environment: *lsio-env
+    ports: ["7878:7878"]
+    volumes:
+      - /mnt/protected/appdata/radarr:/config
+      - /mnt/staging/media-data:/data
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    restart: unless-stopped
+    environment: *lsio-env
+    ports: ["8989:8989"]
+    volumes:
+      - /mnt/protected/appdata/sonarr:/config
+      - /mnt/staging/media-data:/data
+

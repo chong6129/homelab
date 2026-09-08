@@ -25,6 +25,11 @@ Infra01 hosts the services used to reach and manage the homelab:
 The centralized monitoring workload was migrated to Infra02 to move
 write-intensive Prometheus and Grafana data off Infra01's microSD storage.
 
+Sanitized deployment references are maintained in
+[`docker/compose/infra01-core.yml`](../docker/compose/infra01-core.yml),
+[`docker/compose/infra01-authentik.yml`](../docker/compose/infra01-authentik.yml),
+and [`docker/compose/node-exporter.yml`](../docker/compose/node-exporter.yml).
+
 ## Build Log
 
 ### 2026-07-06

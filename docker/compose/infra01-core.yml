@@ -1,0 +1,38 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    ports: ["8000:8000", "9000:9000", "9443:9443"]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+    networks: [homelab]
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    ports: ["3000:3000"]
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: "homepage.longn.ca,10.10.10.163:3000"
+    volumes:
+      - /opt/docker/homepage/config:/app/config
+      - /opt/docker/homepage/icons:/app/public/icons
+      - /opt/docker/homepage/logs:/app/logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [homelab]
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    restart: unless-stopped
+    ports: ["3001:3001"]
+    volumes:
+      - uptime-kuma-data:/app/data
+    networks: [homelab]
+volumes:
+  portainer-data:
+  uptime-kuma-data:
+networks:
+  homelab:
+    external: true
+

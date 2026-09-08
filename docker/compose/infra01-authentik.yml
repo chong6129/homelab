@@ -1,0 +1,57 @@
+services:
+  postgresql:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file: [.env]
+    environment:
+      POSTGRES_DB: ${PG_DB:-authentik}
+      POSTGRES_USER: ${PG_USER:-authentik}
+      POSTGRES_PASSWORD: ${PG_PASS:?database password required}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    volumes:
+      - database:/var/lib/postgresql/data
+  server:
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2026.5.6}
+    command: server
+    restart: unless-stopped
+    env_file: [.env]
+    environment: &authentik-env
+      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
+      AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    ports:
+      - "${COMPOSE_PORT_HTTP:-9002}:9000"
+      - "${COMPOSE_PORT_HTTPS:-9444}:9443"
+    shm_size: 512mb
+    volumes:
+      - ./data:/data
+      - ./custom-templates:/templates
+  worker:
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2026.5.6}
+    command: worker
+    restart: unless-stopped
+    user: root
+    env_file: [.env]
+    environment: *authentik-env
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    shm_size: 512mb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+      - ./certs:/certs
+      - ./custom-templates:/templates
+volumes:
+  database:
+

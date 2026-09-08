@@ -33,10 +33,8 @@ The network is built around a **UniFi Cloud Gateway Fiber (UCG-Fiber)** with mul
 - UniFi U6 Pro
 - UniFi U7 Pro
 - VLAN segmentation
-- Dedicated infrastructure network
-- Dedicated server network
-- Isolated IoT network
-- Guest network
+- Dedicated IoT network
+- Isolated security-lab network
 - Split DNS
 - Cloudflare DNS
 - Caddy reverse proxy
@@ -46,12 +44,12 @@ The network is built around a **UniFi Cloud Gateway Fiber (UCG-Fiber)** with mul
 
 | VLAN | Purpose |
 |---|---|
-| LAN | Trusted client devices |
-| VLAN 10 | Infrastructure |
+| VLAN 1 | Default/trusted network |
 | VLAN 30 | IoT |
-| VLAN 40 | Guest |
-| VLAN 50 | Servers |
 | VLAN 66 | Isolated security lab |
+
+These are the three networks currently deployed. The IoT network is separated
+by VLAN but does not currently have network isolation enabled.
 
 ---
 
@@ -100,9 +98,12 @@ Major services include:
 - Immich
 - Jellyfin
 - Jellystat
-- Nextcloud
 - Vaultwarden
-- Firefly III
+- Jellyseerr
+- Bazarr
+- FlareSolverr
+- Gluetun
+- Jackett
 - Radarr
 - Sonarr
 - Prowlarr
@@ -284,13 +285,12 @@ Cloudflare
    ▼
 Reverse Proxy / Tunnel
    │
-   ├── Homepage
    ├── Jellyfin
    ├── Immich
    ├── Vaultwarden
-   ├── Nextcloud
-   ├── Portainer
-   ├── Uptime Kuma
+   ├── Jellyseerr
+   ├── Jellystat
+   ├── Grafana (through Authentik)
    └── Authentik
 ```
 
@@ -305,10 +305,8 @@ Security is a primary design consideration rather than an afterthought.
 ### Implemented
 
 - VLAN network segmentation
-- Dedicated infrastructure network
-- Dedicated server network
-- IoT isolation
-- Guest network isolation
+- Dedicated IoT VLAN
+- Security-Lab isolation
 - HTTPS/TLS
 - Reverse proxy architecture
 - Split DNS
@@ -405,7 +403,7 @@ from Kali and correlating the attacker view with Windows telemetry:
 - [x] qBittorrent
 - [x] Recyclarr
 - [x] Hardlink-enabled storage
-- [ ] Jellyseerr
+- [x] Jellyseerr
 
 ### AI / ML
 

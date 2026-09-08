@@ -1,92 +1,31 @@
-# HomeLab VLAN Plan
+# UniFi Networks and VLANs
 
-## VLAN 10 - Infrastructure
-**Subnet:** 10.10.10.0/24
-**Gateway:** 10.10.10.1
+This file records the networks currently deployed on the UniFi UCG Fiber.
+Future or conceptual VLANs are not listed as active infrastructure.
 
-Purpose
-- Network management
-- Hypervisors
-- Storage
-- Management interfaces
+| Network | VLAN ID | Subnet | Gateway | DHCP range | DNS | Isolation |
+|---|---:|---|---|---|---|---|
+| Default | 1 | `10.10.10.0/24` | `10.10.10.1` | `10.10.10.100-254` | Automatic | None |
+| IoT | 30 | `10.10.30.0/24` | `10.10.30.1` | `10.10.30.100-254` | Automatic | Not currently enabled |
+| Security-Lab | 66 | `10.66.6.0/24` | `10.66.6.1` | `10.66.6.6-254` | `1.1.1.1`, `1.0.0.1` | Enabled |
 
-Devices
-- UCG Fiber
-- Infrastructure Switch
-- AP Management
-- Proxmox
-- TrueNAS
-- Raspberry Pi (Infra01)
+All three networks permit internet access and use a 86,400-second DHCP lease.
+Ping conflict detection is enabled. Security-Lab additionally uses DHCP
+guarding with `10.66.6.1` as its trusted DHCP server.
 
----
+## Security-Lab
 
-## VLAN 20 - Servers
-**Subnet:** 10.10.20.0/24
+The lab contains Kali (`10.66.6.122`) and `winSB` (`10.66.6.115`). UniFi's
+isolated-network policy prevents VLAN 66 from initiating traffic to trusted
+internal networks. A separate gateway-management rule prevents VLAN 66 from
+accessing the UCG Fiber management plane.
 
-Services
-- Docker Hosts
-- Homepage
-- Portainer
-- Authentik
-- Grafana
-- Prometheus
-- Wazuh
-- Paperless
-- Joplin
+The only custom management path is TCP/3389 from trusted desktop
+`10.10.10.115` to `winSB`; UniFi automatically permits the stateful return
+traffic.
 
----
+## IoT Status
 
-## VLAN 30 - IoT
-
-Examples
-- Google Home
-- Smart plugs
-- Smart lights
-- TVs
-
-Restrictions
-- Internet only
-- No access to Infrastructure VLAN
-- Limited access to Home Assistant
-
----
-
-## VLAN 40 - Cameras
-
-Purpose
-- Security cameras
-- NVR
-
-Restrictions
-- No Internet
-- Can only talk to NVR
-
----
-
-## VLAN 50 - Guest
-
-Restrictions
-- Internet only
-- Client Isolation enabled
-
----
-
-## VLAN 66 - Security Lab
-
-**Subnet:** 10.66.6.0/24
-
-Purpose
-- Kali
-- Windows test VM
-- Ubuntu test VM
-
-Current systems
-- Kali: 10.66.6.122
-- winSB: 10.66.6.115
-
-Restrictions
-- Isolated from trusted and infrastructure networks
-- Cannot initiate connections to the trusted LAN
-- Internet access retained for controlled tooling, updates, and NTP
-- Explicit management exception: trusted desktop 10.10.10.115 to winSB
-  10.66.6.115 on TCP/3389 only
+IoT is a dedicated VLAN and SSID, but network isolation is currently disabled.
+It must not be described as isolated until an isolation policy is deployed and
+tested.

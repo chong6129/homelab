@@ -41,6 +41,10 @@ Grafana remains available through `grafana.longn.ca`. External requests pass
 through Cloudflare and Authentik on Infra01 before Authentik proxies them to
 Grafana on Infra02 at TCP/3005.
 
+The sanitized monitoring deployment is recorded in
+[`docker/compose/infra02-monitoring.yml`](../docker/compose/infra02-monitoring.yml).
+Exporter credentials remain host-local and are not committed.
+
 The migration from Infra01 preserved the existing Grafana configuration,
 dashboards, Prometheus history, and TrueNAS Graphite telemetry. Infra01 now
 runs only Node Exporter from its former monitoring stack.
