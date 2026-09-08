@@ -71,12 +71,22 @@ Restrictions
 
 ---
 
-## VLAN 60 - Lab
+## VLAN 66 - Security Lab
+
+**Subnet:** 10.66.6.0/24
 
 Purpose
 - Kali
 - Windows test VM
 - Ubuntu test VM
 
-Notes
-This VLAN is intentionally unrestricted for testing.
+Current systems
+- Kali: 10.66.6.122
+- winSB: 10.66.6.115
+
+Restrictions
+- Isolated from trusted and infrastructure networks
+- Cannot initiate connections to the trusted LAN
+- Internet access retained for controlled tooling, updates, and NTP
+- Explicit management exception: trusted desktop 10.10.10.115 to winSB
+  10.66.6.115 on TCP/3389 only

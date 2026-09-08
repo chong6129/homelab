@@ -50,6 +50,7 @@ The network is built around a **UniFi Cloud Gateway Fiber (UCG-Fiber)** with mul
 | VLAN 30 | IoT |
 | VLAN 40 | Guest |
 | VLAN 50 | Servers |
+| VLAN 66 | Isolated security lab |
 
 ---
 
@@ -185,6 +186,11 @@ Models tested include:
 - Qwen 3 8B
 - Qwen 2.5 VL 3B
 
+A project-specific GPT has also been added as a conversational companion for
+the homelab. It is used to preserve lab context, guide controlled exercises,
+and help interpret results; the repository remains the authoritative record of
+implemented infrastructure and validated findings.
+
 Open WebUI provides the browser interface for interacting with locally hosted models.
 
 ---
@@ -297,6 +303,34 @@ Security is a primary design consideration rather than an afterthought.
 - Authentik identity provider
 - Local password management with Vaultwarden
 - Dedicated security-testing VMs
+- Isolated VLAN 66 security lab
+- Restricted desktop-to-lab RDP management path
+- Sysmon endpoint telemetry with the SwiftOnSecurity configuration
+- Windows Firewall dropped-packet logging
+- Validated red/blue correlation for blocked SYN scans and permitted RDP
+  service enumeration
+
+### Security Lab
+
+The Proxmox security lab currently pairs Kali Linux (`10.66.6.122`) with a
+Windows sandbox (`winSB`, `10.66.6.115`) on isolated VLAN 66. Inter-VLAN
+access is denied except for a tested TCP/3389 management rule from the trusted
+desktop (`10.10.10.115`) to `winSB`.
+
+The first purple-team cycle was completed by executing controlled Nmap activity
+from Kali and correlating the attacker view with Windows telemetry:
+
+- A TCP SYN scan produced Windows Firewall `DROP` records for blocked RPC,
+  NetBIOS, and SMB probes on ports 135, 139, and 445.
+- An `nmap -sV -Pn -p 3389` probe identified RDP while Sysmon Event ID 3
+  recorded the inbound connections from Kali to `winSB`.
+- Sysmon identified `svchost.exe`, `NT AUTHORITY\NETWORK SERVICE`, the `RDP`
+  rule, and `Initiated: false`; it recorded the connection, not attribution to
+  Nmap itself.
+- The Windows sandbox timezone was corrected from Pacific to Eastern, the
+  Windows Time service was enabled, and synchronization with
+  `time.windows.com` was verified so Kali and Windows evidence can be reliably
+  correlated.
 
 ### Planned
 
@@ -379,6 +413,10 @@ Security is a primary design consideration rather than an afterthought.
 
 ### Security
 
+- [x] Isolated VLAN 66 security lab
+- [x] Kali and Windows sandbox baseline
+- [x] Sysmon and Windows Firewall telemetry
+- [x] Initial purple-team red/blue correlation
 - [ ] Wazuh
 - [ ] CrowdSec
 - [ ] Centralized security logging

@@ -7,6 +7,45 @@ maintenance, package updates, or minor configuration changes.
 
 ---
 
+## 2026-09-08 — Security Lab Purple-Team Baseline
+
+### Segmentation and Management
+
+- Established the isolated Security Lab on VLAN 66.
+- Confirmed Kali at `10.66.6.122` and `winSB` at `10.66.6.115`.
+- Validated that VLAN 66 cannot initiate connections to the trusted LAN.
+- Added and tested a narrow TCP/3389 management exception from the trusted
+  desktop (`10.10.10.115`) to `winSB`.
+- Verified RDP and clipboard functionality through the management path.
+
+### Endpoint and Firewall Telemetry
+
+- Verified Sysmon 15.21 running automatically on `winSB` with the
+  SwiftOnSecurity configuration.
+- Enabled Windows Firewall dropped-packet logging.
+- Correlated a controlled Nmap SYN scan with firewall `DROP` records for TCP
+  ports 135, 139, and 445.
+- Correlated `nmap -sV -Pn -p 3389` service enumeration with inbound Sysmon
+  Event ID 3 records from Kali to the RDP service on `winSB`.
+- Confirmed that the Sysmon records identify the connection direction,
+  endpoints, port, service process, and rule, but do not by themselves identify
+  Nmap as the source application.
+
+### Time Synchronization
+
+- Corrected the `winSB` timezone from Pacific to Eastern.
+- Enabled the Windows Time service and configured automatic startup.
+- Verified synchronization with `time.windows.com` and aligned Kali/Windows
+  timestamps for reliable cross-source correlation.
+
+### GPT
+
+- Added a project-specific GPT as a conversational lab companion for guided
+  exercises, continuity, and result interpretation.
+- Retained this repository as the authoritative source for validated lab state.
+
+---
+
 ## 2026-08-13 — Immich GPU Acceleration & Storage Migration
 
 ### Immich Machine Learning

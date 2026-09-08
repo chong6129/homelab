@@ -57,6 +57,7 @@ The primary trusted LAN uses:
 | VLAN 30 | IoT |
 | VLAN 40 | Guest |
 | VLAN 50 | Servers |
+| VLAN 66 | Isolated security lab |
 
 Segmentation separates infrastructure, servers, untrusted IoT devices,
 guest devices, and trusted clients.
@@ -533,6 +534,30 @@ Security controls currently implemented include:
 - Centralized identity foundation
 - Local password management
 - Dedicated security testing environment
+- Sysmon endpoint telemetry
+- Windows Firewall dropped-packet logging
+
+## Security Lab
+
+The dedicated Proxmox security environment is isolated on VLAN 66:
+
+    Trusted desktop                    Security Lab
+    10.10.10.115                       VLAN 66
+          │                               │
+          └──── TCP/3389 only ───────────►│ winSB 10.66.6.115
+                                          │
+                                          └── Kali 10.66.6.122
+
+The lab VLAN cannot initiate connections to the trusted LAN. A narrow RDP rule
+allows management of `winSB` from the trusted desktop without weakening the
+general isolation policy.
+
+`winSB` runs Sysmon 15.21 with the SwiftOnSecurity configuration and Windows
+Firewall dropped-packet logging. Controlled Nmap scans from Kali have been
+correlated against both sources: blocked SYN probes appear as firewall `DROP`
+events, while permitted RDP service enumeration appears as inbound Sysmon
+Event ID 3 network connections. Both lab systems use synchronized time so
+cross-host timelines can be compared reliably.
 
 Planned security capabilities include:
 
