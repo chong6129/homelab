@@ -9,7 +9,7 @@ This directory contains all Docker-related configurations for the homelab.
 - Pi-hole
 - Uptime Kuma
 
-Future
+## Planned Services
 - Authentik
 - Linkwarden
 - Paperless-ngx

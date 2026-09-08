@@ -12,11 +12,12 @@ identity, monitoring, and GPU-accelerated AI workloads.
 
 > Insert current architecture diagram here.
 
-The environment consists of three primary compute platforms:
+The environment consists of four primary compute platforms:
 
 | Platform | Primary Role |
 |---|---|
 | Raspberry Pi 5 — Infra01 | Core infrastructure and management services |
+| Raspberry Pi 5 — Infra02 | Observability and monitoring services |
 | TrueNAS SCALE | ZFS storage, applications, media, and GPU-enabled virtualization |
 | Dell OptiPlex 3050 — Proxmox | Virtualization and security testing |
 
@@ -87,6 +88,33 @@ Current services include:
 
 This allows core management and access services to remain available
 independently of TrueNAS application workloads.
+
+---
+
+## Infra02
+
+**Platform:** Raspberry Pi 5
+
+**Operating System:** Debian 13 (Trixie), ARM64
+
+**Address:** `10.10.10.189`
+
+**Storage:** 256 GB Patriot P320 NVMe
+
+Infra02 is the observability and operations host. Its NVMe root filesystem is
+used for the write-intensive Prometheus time-series database and Grafana state.
+
+Current services include:
+
+- Prometheus
+- Grafana
+- PVE Exporter
+- Graphite Exporter
+- Node Exporter
+
+The monitoring stack was migrated from Infra01 with existing dashboards and
+historical metrics preserved. Infra01 continues to run Node Exporter for its
+own host metrics.
 
 ---
 
@@ -578,16 +606,18 @@ Current monitoring includes:
 - UniFi monitoring
 - TrueNAS monitoring
 - Docker health checks
+- Prometheus
+- Grafana
+- Node Exporter on Infra01 and Infra02
+- PVE Exporter for Proxmox
+- Graphite Exporter for TrueNAS telemetry
 
-Future observability stack:
+Current observability flow:
 
-    Infrastructure
-         │
-         ▼
-     Prometheus
-         │
-         ▼
-       Grafana
+    Infra01 ── Node Exporter ──┐
+    Infra02 ── Node Exporter ──┤
+    Proxmox ── PVE Exporter ───┼──► Prometheus ──► Grafana
+    TrueNAS ── Graphite ───────┘
 
 Logs:
 
@@ -649,8 +679,9 @@ than deployed as isolated applications.
 
 - [README](README.md) — project overview and current capabilities
 - [CHANGELOG](CHANGELOG.md) — major infrastructure changes and milestones
-- `docs/` — implementation documentation
+- `docs/` — general and cross-cutting documentation
+- `infrastructure/` — physical systems and host roles
 - `network/` — network configuration and documentation
 - `docker/` — container configuration
 - `diagrams/` — architecture diagrams
-- `Scripts/` — administration and automation
+- `scripts/` — administration and automation

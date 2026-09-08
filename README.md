@@ -8,11 +8,12 @@ The lab is designed as more than a collection of self-hosted applications. It pr
 
 ## Architecture
 
-The environment is distributed across three primary compute platforms:
+The environment is distributed across four primary compute platforms:
 
 | Platform | Role |
 |---|---|
 | Raspberry Pi 5 — Infra01 | Core infrastructure and management services |
+| Raspberry Pi 5 — Infra02 | Observability and monitoring services |
 | TrueNAS SCALE | ZFS storage, applications, media services, and GPU-enabled VM workloads |
 | Dell OptiPlex 3050 — Proxmox | Virtualization, security testing, and lab workloads |
 
@@ -67,6 +68,18 @@ Services include:
 - Uptime Kuma
 - Caddy
 - Authentik
+
+### Infra02 — Raspberry Pi 5
+
+NVMe-backed observability and operations host running Debian 13 and Docker.
+
+Services include:
+
+- Prometheus
+- Grafana
+- PVE Exporter
+- Graphite Exporter
+- Node Exporter
 
 ### TrueNAS SCALE
 
@@ -351,11 +364,12 @@ from Kali and correlating the attacker view with Windows telemetry:
 - UniFi monitoring
 - TrueNAS monitoring
 - Docker/container health monitoring
+- Prometheus
+- Grafana
+- Proxmox and Raspberry Pi host dashboards
 
 ### Planned
 
-- Prometheus
-- Grafana
 - Loki
 - Centralized infrastructure dashboards
 
@@ -407,8 +421,8 @@ from Kali and correlating the attacker view with Windows telemetry:
 ### Monitoring
 
 - [x] Uptime Kuma
-- [ ] Prometheus
-- [ ] Grafana
+- [x] Prometheus
+- [x] Grafana
 - [ ] Loki
 
 ### Security
@@ -442,11 +456,12 @@ Additional technical documentation is maintained throughout the repository.
 
 - [Architecture](ARCHITECTURE.md)
 - [Changelog](CHANGELOG.md)
-- `docs/` — service and implementation documentation
+- `docs/` — general and cross-cutting documentation
+- `infrastructure/` — physical systems and host roles
 - `network/` — networking configuration and documentation
 - `docker/` — container configuration
 - `diagrams/` — architecture and topology diagrams
-- `Scripts/` — administration and automation scripts
+- `scripts/` — administration and automation scripts
 
 ---
 

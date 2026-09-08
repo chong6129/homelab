@@ -23,6 +23,7 @@ Infrastructure
 | U6 Pro      | 10.10.10.130| DHCP Reservation  |      |               |
 | U7 Pro      | 10.10.10.131| DHCP Reservation  |      |               |
 | Infra01     | 10.10.10.163| DHCP Reservation  |      | Raspberry Pi  |
+| Infra02     | 10.10.10.189| DHCP Reservation  |      | Monitoring Pi |
 | TrueNAS     | 10.10.10.254| DHCP Reservation  |      | Apps Host     |
 
 ## Reserved Ranges

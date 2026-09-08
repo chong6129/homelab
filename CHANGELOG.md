@@ -46,6 +46,30 @@ maintenance, package updates, or minor configuration changes.
 
 ---
 
+## 2026-09-07 — Infra02 Monitoring Migration
+
+### Infra02
+
+- Deployed Infra02 on a Raspberry Pi 5 with Debian 13 (Trixie), ARM64.
+- Migrated the root filesystem from microSD to a 256 GB Patriot P320 NVMe.
+- Verified SD-less NVMe boot and the root filesystem on `/dev/nvme0n1p2`.
+- Reserved `10.10.10.189` for the host.
+- Installed Docker and Docker Compose.
+
+### Observability
+
+- Migrated Prometheus and Grafana from Infra01 to Infra02.
+- Migrated the existing Grafana database and Prometheus time-series history.
+- Deployed PVE Exporter, Graphite Exporter, and Node Exporter on Infra02.
+- Verified Prometheus collection from Infra01, Infra02, Proxmox, and TrueNAS.
+- Redirected TrueNAS Netdata Graphite telemetry from Infra01 to Infra02 on
+  TCP/9109.
+- Updated the Authentik Grafana proxy destination to Infra02 on TCP/3005 while
+  preserving access through `grafana.longn.ca`.
+- Reduced the former Infra01 monitoring stack to Node Exporter only.
+
+---
+
 ## 2026-08-13 — Immich GPU Acceleration & Storage Migration
 
 ### Immich Machine Learning
