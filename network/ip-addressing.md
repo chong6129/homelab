@@ -2,6 +2,10 @@
 
 ## Active Subnets
 
+The subnet table is the September baseline. Nextcloud's confirmed address is
+`10.10.50.50`; its prefix, gateway, DHCP range, and VLAN ID remain to be
+inventoried, so no subnet row is inferred from that address alone.
+
 | Network | Subnet | Gateway | DHCP range |
 |---|---|---|---|
 | Default (VLAN 1) | `10.10.10.0/24` | `10.10.10.1` | `10.10.10.100-254` |
@@ -24,6 +28,13 @@
 | Trusted desktop | `10.10.10.115` | Default | RDP management source |
 | `winSB` | `10.66.6.115` | Security-Lab | Windows sandbox |
 | Kali | `10.66.6.122` | Security-Lab | Security workstation |
+| DC01 | `10.66.6.10` | Security-Lab | Server 2025 AD, `corp.longn.ca` |
+| DC02 | `10.66.6.11` | Security-Lab | Server 2025 AD, `corp.longn.ca` |
+| Nextcloud Ubuntu VM | `10.10.50.50` | VLAN/subnet details pending | Docker stack and NFS client |
+
+WIN11-01 is domain-joined; its address is not recorded in the available notes.
+DC addresses fall inside the previously documented lab DHCP range; exclusion
+or reservation details need verification alongside the current network inventory.
 
 The UniFi label that previously identified `10.10.10.189` as Home Assistant was
 stale. That Home Assistant instance has been retired; the address belongs to

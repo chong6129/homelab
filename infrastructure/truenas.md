@@ -59,7 +59,21 @@ TrueNAS stores its rendered media-stack file beneath
 `/mnt/.ix-apps/app_configs/media-stack`. The sanitized repository copy is a
 reference representation; TrueNAS remains the deployment authority.
 
-## Cloudflare Routes
+## Nextcloud NFS and Snapshots
+
+The Ubuntu Nextcloud VM (`10.10.50.50`) uses `protected/Nextcloud` for live
+user files and `protected/NextcloudBackups` for automated PostgreSQL/config
+backup sets over NFS. Backup access uses the dedicated `nextcloudbackup`
+identity. The VM accesses backup sets beneath `/mnt/nextcloud-backups`.
+
+Periodic snapshot tasks are enabled. Exact dataset-to-task mappings and first
+successful runs need verification; the proposed backup retention tiers are
+daily/two weeks, weekly/eight weeks, and monthly/six months. See
+[Nextcloud storage and restore validation](nextcloud.md) for the evidence
+limits and the passed temporary-database restore test. Backup `.env` and
+`config.php` files contain secrets and are intentionally excluded from Git.
+
+## Existing Cloudflare Routes
 
 | Public hostname | Origin |
 |---|---|

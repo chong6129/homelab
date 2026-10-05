@@ -1,0 +1,11 @@
+# Host-local secrets and private backup artifacts
+.env
+.env.*
+!.env.example
+config.php
+*.sql
+*.sql.gz
+*.dump
+*.pfx
+*.p12
+*.key

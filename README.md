@@ -48,8 +48,10 @@ The network is built around a **UniFi Cloud Gateway Fiber (UCG-Fiber)** with mul
 | VLAN 30 | IoT |
 | VLAN 66 | Isolated security lab |
 
-These are the three networks currently deployed. The IoT network is separated
-by VLAN but does not currently have network isolation enabled.
+These are the networks documented in the September baseline. Nextcloud now
+uses `10.10.50.50`; its subnet/VLAN details still need reconciliation with
+UniFi. The IoT network is separated by VLAN but its last recorded network
+isolation setting was disabled.
 
 ---
 
@@ -254,6 +256,14 @@ Initial Smart Search processing successfully indexed more than **6,000 assets** 
 
 ## Identity & Access
 
+The [Active Directory lab](infrastructure/active-directory.md) now runs
+`corp.longn.ca` on Windows Server 2025 DC01 (`10.66.6.10`) and DC02
+(`10.66.6.11`), with domain-joined WIN11-01. LDAPS works on both DCs using
+Smallstep certificates, renewed by SYSTEM tasks every four hours. SMB signing
+is required, `LmCompatibilityLevel = 5`, NTLM auditing is enabled, and Kerberos
+has been verified. LDAP signing/channel-binding compatibility checks remain
+pending; global NTLM blocking is deferred for the non-domain PC's RDP access.
+
 Authentik provides the foundation for centralized authentication and SSO across supported services.
 
 Current capabilities:
@@ -273,6 +283,22 @@ Planned work includes expanding:
 ---
 
 ## Remote Access
+
+### Nextcloud
+
+[Nextcloud](infrastructure/nextcloud.md) runs on Ubuntu VM `10.10.50.50` with
+Docker services for Nextcloud, PostgreSQL, Redis, cron, and cloudflared.
+Its public path is **Cloudflare Tunnel -> Caddy -> Nextcloud**, with real
+client IP forwarding, proxy trust, HSTS, web/mobile/desktop login, and SMTP
+via `nextcloud@longn.ca` validated.
+
+User data resides on TrueNAS NFS. Automated SQL/config backups use a separate
+NFS dataset and dedicated `nextcloudbackup` identity. Secrets stay in a
+host-local `.env`. Snapshot tasks are enabled, and a temporary-database
+restore test passed. Exact snapshot mappings and a full application/files
+recovery drill remain follow-ups.
+
+### Other services
 
 Externally accessible services are protected using HTTPS and exposed through a combination of Cloudflare and reverse-proxy infrastructure.
 
@@ -323,10 +349,11 @@ Security is a primary design consideration rather than an afterthought.
 
 ### Security Lab
 
-The Proxmox security lab currently pairs Kali Linux (`10.66.6.122`) with a
+The September Proxmox security-lab baseline paired Kali Linux (`10.66.6.122`) with a
 Windows sandbox (`winSB`, `10.66.6.115`) on isolated VLAN 66. Inter-VLAN
 access is denied except for a tested TCP/3389 management rule from the trusted
-desktop (`10.10.10.115`) to `winSB`.
+desktop (`10.10.10.115`) to `winSB`. The AD lab has since added DC01/DC02 and
+WIN11-01; its current management rules still need a sanitized inventory.
 
 The first purple-team cycle was completed by executing controlled Nmap activity
 from Kali and correlating the attacker view with Windows telemetry:
@@ -390,6 +417,10 @@ from Kali and correlating the attacker view with Windows telemetry:
 ### Identity
 
 - [x] Authentik deployed
+- [x] AD domain, DC01/DC02, and WIN11-01
+- [x] Smallstep LDAPS and scheduled renewal on both DCs
+- [x] SMB signing and NTLM auditing; Kerberos verified
+- [ ] LDAP signing/channel-binding compatibility validation and staged enforcement
 - [ ] Expand SSO integrations
 - [ ] Expand MFA coverage
 
@@ -435,9 +466,12 @@ from Kali and correlating the attacker view with Windows telemetry:
 
 ### Automation
 
+- [x] Nextcloud automated PostgreSQL/config backups to TrueNAS NFS
+- [x] Nextcloud snapshot tasks enabled and temporary-database restore tested
+- [ ] Verify snapshot mappings and perform full Nextcloud recovery drill
 - [ ] Ansible
 - [ ] GitHub Actions
-- [ ] Automated configuration backups
+- [ ] Extend automated configuration backups beyond Nextcloud
 - [ ] Infrastructure-as-Code expansion
 
 ### Future Services
@@ -454,6 +488,10 @@ Additional technical documentation is maintained throughout the repository.
 
 - [Architecture](ARCHITECTURE.md)
 - [Changelog](CHANGELOG.md)
+- [Active Directory lab](infrastructure/active-directory.md)
+- [Nextcloud deployment and recovery validation](infrastructure/nextcloud.md)
+- [Detailed AD and Nextcloud checklist](docs/Roadmap.md)
+- [AD and Nextcloud diagrams](diagrams/README.md)
 - `docs/` — general and cross-cutting documentation
 - `infrastructure/` — physical systems and host roles
 - `network/` — networking configuration and documentation

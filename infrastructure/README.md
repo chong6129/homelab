@@ -20,4 +20,6 @@ Documentation for physical infrastructure and the role of each host.
 
 ## Supporting Services
 
+- [Active Directory lab](active-directory.md) — DC01/DC02, LDAPS, renewal, and hardening status
+- [Nextcloud](nextcloud.md) — Ubuntu VM, proxy path, NFS storage, backups, and restore validation
 - [Caddy](caddy.md)

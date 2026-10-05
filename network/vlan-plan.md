@@ -1,7 +1,8 @@
 # UniFi Networks and VLANs
 
-This file records the networks currently deployed on the UniFi UCG Fiber.
-Future or conceptual VLANs are not listed as active infrastructure.
+This file records the September UniFi baseline. As of 2026-10-05, Nextcloud
+is confirmed at `10.10.50.50`, but its VLAN ID, subnet prefix, and gateway
+have not been captured. The table is not a complete current network inventory.
 
 | Network | VLAN ID | Subnet | Gateway | DHCP range | DNS | Isolation |
 |---|---:|---|---|---|---|---|
@@ -15,12 +16,16 @@ guarding with `10.66.6.1` as its trusted DHCP server.
 
 ## Security-Lab
 
-The lab contains Kali (`10.66.6.122`) and `winSB` (`10.66.6.115`). UniFi's
+The baseline contained Kali (`10.66.6.122`) and `winSB` (`10.66.6.115`). DC01
+(`10.66.6.10`) and DC02 (`10.66.6.11`) now serve `corp.longn.ca`; WIN11-01
+is domain-joined. Current AD DNS client settings, DHCP exclusions/reservations,
+and management exceptions remain to be inventoried. The table's DNS and DHCP
+values are historical, not instructions for configuring domain members. UniFi's
 isolated-network policy prevents VLAN 66 from initiating traffic to trusted
 internal networks. A separate gateway-management rule prevents VLAN 66 from
 accessing the UCG Fiber management plane.
 
-The only custom management path is TCP/3389 from trusted desktop
+The custom management path recorded in September was TCP/3389 from trusted desktop
 `10.10.10.115` to `winSB`; UniFi automatically permits the stateful return
 traffic.
 

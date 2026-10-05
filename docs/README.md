@@ -5,6 +5,9 @@ network, or application folder.
 
 - [GitHub workflow](GitHub.md)
 - [Roadmap](Roadmap.md)
+- [Active Directory progress](../infrastructure/active-directory.md)
+- [Nextcloud deployment and backup validation](../infrastructure/nextcloud.md)
+- [Logical service diagrams](../diagrams/README.md)
 - [Services](Services.md)
 - [SSL](SSL.md)
 

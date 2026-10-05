@@ -7,6 +7,12 @@ files and must not be committed.
 
 ## Compose references
 
+Nextcloud runs a separate Compose stack on Ubuntu VM `10.10.50.50` with
+Nextcloud, PostgreSQL, Redis, cron, and cloudflared. See its
+[deployment record](../infrastructure/nextcloud.md). The live `compose.yml`,
+`config.php`, and `.env` are backed up privately to TrueNAS; a reviewed,
+sanitized Compose export is still pending and is not included here.
+
 | File | Host/workload |
 |---|---|
 | [`infra01-core.yml`](compose/infra01-core.yml) | Portainer, Homepage, and Uptime Kuma |

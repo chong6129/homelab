@@ -60,9 +60,11 @@ downstream five-port switch. See [network/topology.md](network/topology.md).
 | VLAN 30 | IoT |
 | VLAN 66 | Isolated security lab |
 
-Only these three networks are currently deployed. IoT is separated by VLAN,
-but its network-isolation control is currently disabled. VLAN 66 is isolated
-and has a separate gateway-management block policy.
+This table is the September network baseline. Nextcloud now uses
+`10.10.50.50`; its subnet prefix, VLAN ID, gateway, and current firewall paths
+are pending inventory. IoT isolation was disabled in that baseline. VLAN 66
+had isolation and a separate gateway-management block policy; current AD
+management exceptions still need reconciliation.
 
 Inter-VLAN communication is controlled at the gateway.
 
@@ -496,6 +498,23 @@ GPU activity was verified through:
 
 # Identity Architecture
 
+## Active Directory
+
+`corp.longn.ca` is deployed with Windows Server 2025 DC01 (`10.66.6.10`) and
+DC02 (`10.66.6.11`), plus domain-joined WIN11-01. Both DCs serve validated
+LDAPS on TCP 636 with Smallstep `step-ca` certificates and trust the CA root.
+Renewal tasks run every four hours as SYSTEM and report result 0.
+SMB signing is required, `LmCompatibilityLevel = 5`, and NTLM auditing is on.
+Kerberos is verified between members; NTLMv2 remains in use for RDP from a
+non-domain PC. LDAP signing/channel-binding enforcement is not claimed as
+validated: effective-state auditing and compatibility tests remain pending.
+
+See [AD status](infrastructure/active-directory.md) and
+[logical diagrams](diagrams/README.md). AD integration with Authentik or
+Nextcloud is not established by the available deployment record.
+
+## Authentik
+
 Authentik provides the foundation for centralized authentication.
 
     User
@@ -522,6 +541,29 @@ Future identity improvements include:
 ---
 
 # External Access Architecture
+
+## Nextcloud
+
+The Ubuntu VM at `10.10.50.50` runs Nextcloud, PostgreSQL, Redis, cron, and
+cloudflared under Docker. The public request path is:
+
+```text
+Client -> Cloudflare -> Tunnel/cloudflared -> Caddy -> Nextcloud
+```
+
+Real client IP forwarding, proxy trust, HSTS, SMTP (`nextcloud@longn.ca`), and
+web/mobile/desktop access have been validated. Secrets are stored in a
+host-local `.env`. Live user files use TrueNAS NFS dataset
+`protected/Nextcloud`; automated SQL/config backups use
+`protected/NextcloudBackups` through the dedicated `nextcloudbackup` identity.
+Periodic snapshot tasks are enabled. A temporary PostgreSQL restore and
+configuration-presence test passed; exact snapshot mappings and full
+application/files recovery are still follow-ups.
+
+See [Nextcloud](infrastructure/nextcloud.md) for the backup contents,
+snapshot-policy evidence, and restore-test scope.
+
+## Other services
 
 Externally accessible applications use Cloudflare and reverse-proxy
 infrastructure.
@@ -580,7 +622,7 @@ Security controls currently implemented include:
 
 ## Security Lab
 
-The dedicated Proxmox security environment is isolated on VLAN 66:
+The September Proxmox security baseline was isolated on VLAN 66:
 
     Trusted desktop                    Security Lab
     10.10.10.115                       VLAN 66
@@ -591,7 +633,9 @@ The dedicated Proxmox security environment is isolated on VLAN 66:
 
 The lab VLAN cannot initiate connections to the trusted LAN. A narrow RDP rule
 allows management of `winSB` from the trusted desktop without weakening the
-general isolation policy.
+general isolation policy. This diagram records that baseline; DC01/DC02 and
+WIN11-01 were added afterward. Current AD management exceptions have not yet
+been inventoried in this document.
 
 `winSB` runs Sysmon 15.21 with the SwiftOnSecurity configuration and Windows
 Firewall dropped-packet logging. Controlled Nmap scans from Kali have been

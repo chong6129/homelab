@@ -7,6 +7,28 @@ maintenance, package updates, or minor configuration changes.
 
 ---
 
+## 2026-10-05 — AD Progress and Nextcloud Deployment
+
+This entry consolidates work reported since the September update; it is the
+documentation date, not a claim that every change occurred on this day.
+
+- Documented `corp.longn.ca`, Server 2025 DC01/DC02, and WIN11-01.
+- Recorded tested LDAPS through Smallstep, four-hour SYSTEM renewal tasks
+  with successful results, required SMB signing, `LmCompatibilityLevel = 5`,
+  NTLM auditing, verified Kerberos, and delegated workstation admin membership.
+- Kept LDAP signing/channel-binding auditing and compatibility rollout open;
+  NTLMv2 RDP from a non-domain PC remains a reason to defer global NTLM blocking.
+- Documented the Ubuntu Nextcloud VM at `10.10.50.50`, Docker components,
+  Cloudflare Tunnel -> Caddy path, real client IP forwarding, HSTS, SMTP,
+  and host-local `.env` secrets.
+- Recorded TrueNAS NFS user data and automated SQL/config backups with the
+  dedicated `nextcloudbackup` identity, enabled snapshot tasks, and the passed
+  temporary-database restore test.
+- Distinguished intended snapshot tiers from unverified dataset mappings;
+  retained a full application/files recovery drill as future work.
+- Added logical diagrams, detailed follow-ups, cross-links, and secret-file
+  ignore rules. Marked older network tables as a baseline pending reconciliation.
+
 ## 2026-09-08 — Security Lab Purple-Team Baseline
 
 ### Segmentation and Management
