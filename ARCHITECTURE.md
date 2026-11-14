@@ -498,6 +498,10 @@ GPU activity was verified through:
 
 # Identity Architecture
 
+The November documentation review adds application and security-telemetry
+relationships described below. Host placement and network details without new
+evidence retain their earlier baseline dates; see [operations notes](docs/Operations.md).
+
 ## Active Directory
 
 `corp.longn.ca` is deployed with Windows Server 2025 DC01 (`10.66.6.10`) and
@@ -646,7 +650,7 @@ cross-host timelines can be compared reliably.
 
 Planned security capabilities include:
 
-- Wazuh
+- Complete Wazuh UniFi field extraction and detection tuning
 - CrowdSec
 - Centralized security logging
 - Expanded MFA
@@ -686,7 +690,32 @@ Logs:
          ▼
        Grafana
 
-Security telemetry may later be integrated with Wazuh.
+## Wazuh security telemetry
+
+The November 5–6 work established this additional path:
+
+```text
+UCG Fiber -> Infra01 rsyslog -> filtered Security/Audit CEF
+    -> Wazuh Agent -> Manager on Infra02 -> indexer -> dashboard
+```
+
+An indexed level-4 audit test alert was confirmed. Rule `100201` also matched
+an IDS/IPS test at level 7. Source-IP extraction succeeded in a combined-decoder
+test; extended fields, final live rollout, event `544`, tuning, and file
+retention remain open. See [Wazuh evidence](infrastructure/wazuh.md).
+
+# Application Progress — November 2026
+
+| Workload | Recorded implementation | Remaining work |
+|---|---|---|
+| Paperless-ngx | Proxmox CT 104; Ollama at `10.10.10.249:11434`; metadata suggestions | Controlled automatic application and configuration/backup inventory |
+| RustDesk | LXC server; native access and Cloudflare-protected web UI | Browser WebSocket remote-control path |
+| Home Assistant | Sections dashboard, glass theme, full-width weather strip | Current host/IP and backup inventory |
+| Jellyfin | Theme, personalized rows, genre/drama collections, IMDb ranking rows verified in Web | TV-client verification and weekly Rotten Tomatoes/Seerr automation |
+
+These entries do not establish AD/SSO integration for those applications.
+Details: [Paperless](infrastructure/paperless.md), [RustDesk](infrastructure/rustdesk.md),
+[Jellyfin](infrastructure/jellyfin.md), and [operations](docs/Operations.md).
 
 ---
 

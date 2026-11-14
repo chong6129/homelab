@@ -19,6 +19,22 @@ The environment is distributed across four primary compute platforms:
 
 Detailed architecture and diagrams are available in [ARCHITECTURE.md](ARCHITECTURE.md).
 
+### Latest documentation update — 2026-11-13
+
+- [Wazuh](infrastructure/wazuh.md): UniFi Security/Audit CEF forwarding through
+  Infra01 to the Manager on Infra02, with an indexed test alert verified.
+- [Jellyfin](infrastructure/jellyfin.md): personalized web home rows, genre and
+  Asian-drama collections, and library-matched ranking rows implemented.
+- [Paperless-ngx](infrastructure/paperless.md): Proxmox CT 104 and local Ollama
+  metadata suggestions reported working; automatic application remains pending.
+- [RustDesk](infrastructure/rustdesk.md): native remote access works; the browser
+  client's WebSocket connection remains unresolved.
+- [Operations notes](docs/Operations.md): Home Assistant dashboard progress,
+  browser-access recovery, and pending storage/AI experiments.
+
+This update reconciles recorded work since October 5. It is not a live audit;
+remaining verification tasks are listed in the [roadmap](docs/Roadmap.md).
+
 ---
 
 ## Network
@@ -80,6 +96,7 @@ Services include:
 - PVE Exporter
 - Graphite Exporter
 - Node Exporter
+- Wazuh Manager (November UniFi integration; see deployment evidence and gaps)
 
 ### TrueNAS SCALE
 
@@ -372,7 +389,7 @@ from Kali and correlating the attacker view with Windows telemetry:
 
 ### Planned
 
-- Wazuh
+- Complete Wazuh structured UniFi decoding and detection tuning
 - CrowdSec
 - Centralized security logging
 - Additional SSO/MFA integrations
@@ -384,6 +401,7 @@ from Kali and correlating the attacker view with Windows telemetry:
 
 ### Current
 
+- Wazuh UniFi Security/Audit integration with indexed test alert
 - Uptime Kuma
 - Jellystat
 - UniFi monitoring
@@ -460,7 +478,8 @@ from Kali and correlating the attacker view with Windows telemetry:
 - [x] Kali and Windows sandbox baseline
 - [x] Sysmon and Windows Firewall telemetry
 - [x] Initial purple-team red/blue correlation
-- [ ] Wazuh
+- [x] Wazuh UniFi forwarding, custom rules, and indexed audit test alert
+- [ ] Complete Wazuh field extraction, live validation, and log retention
 - [ ] CrowdSec
 - [ ] Centralized security logging
 
@@ -474,9 +493,14 @@ from Kali and correlating the attacker view with Windows telemetry:
 - [ ] Extend automated configuration backups beyond Nextcloud
 - [ ] Infrastructure-as-Code expansion
 
-### Future Services
+### Applications and Future Services
 
-- [ ] Paperless-ngx
+- [x] Paperless-ngx deployed; local AI metadata suggestions working
+- [ ] Validate automatic Paperless metadata application
+- [x] RustDesk native remote access
+- [ ] Resolve RustDesk browser-client WebSocket access
+- [x] Home Assistant Sections dashboard with full-width weather strip
+- [ ] Verify weekly Rotten Tomatoes lists and recurring Seerr requests
 - [ ] Additional Authentik integrations
 - [ ] Expanded local AI services
 
@@ -492,6 +516,11 @@ Additional technical documentation is maintained throughout the repository.
 - [Nextcloud deployment and recovery validation](infrastructure/nextcloud.md)
 - [Detailed AD and Nextcloud checklist](docs/Roadmap.md)
 - [AD and Nextcloud diagrams](diagrams/README.md)
+- [Wazuh / UniFi integration](infrastructure/wazuh.md)
+- [Jellyfin customization and media operations](infrastructure/jellyfin.md)
+- [Paperless and local AI](infrastructure/paperless.md)
+- [RustDesk status](infrastructure/rustdesk.md)
+- [Operations notes and evidence gaps](docs/Operations.md)
 - `docs/` — general and cross-cutting documentation
 - `infrastructure/` — physical systems and host roles
 - `network/` — networking configuration and documentation

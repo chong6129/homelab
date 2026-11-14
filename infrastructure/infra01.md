@@ -22,6 +22,17 @@ Infra01 hosts the services used to reach and manage the homelab:
 - Portainer
 - Node Exporter
 
+## November security telemetry update
+
+Infra01 now receives UCG Fiber syslog through rsyslog, filters Security/Audit
+CEF events, and forwards them through a Wazuh Agent. An audit test alert was
+confirmed in the Wazuh dashboard. Raw/filtered file rotation and retention
+still need verification. See [Wazuh](wazuh.md).
+
+The November browser investigation reported Jellyfin resolving internally to
+`10.10.10.4`. Caddy's current placement needs reconciliation with older host
+descriptions; no proxy relocation is inferred here.
+
 The centralized monitoring workload was migrated to Infra02 to move
 write-intensive Prometheus and Grafana data off Infra01's microSD storage.
 

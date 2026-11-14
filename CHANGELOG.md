@@ -7,6 +7,28 @@ maintenance, package updates, or minor configuration changes.
 
 ---
 
+## 2026-11-13 — Security Telemetry and Application Progress
+
+Documentation catch-up for work recorded since October 5; dates below refer
+to source work where known. This is not a fresh live configuration audit.
+
+- Recorded the November UniFi -> Infra01 rsyslog/filter -> Wazuh Agent ->
+  Infra02 Manager -> indexer/dashboard path and confirmed indexed audit test.
+  Kept extended decoder fields, final rollout, tuning, and retention open.
+- Documented November Jellyfin Web customization: theme, personalized rows,
+  genre and Asian-drama collections, SmartLists ranking rows, and pre-change
+  backup. Weekly Rotten Tomatoes/Seerr automation remains unverified.
+- Added Paperless-ngx CT 104 with local Ollama metadata suggestions; automatic
+  application remains unfinished in the available record.
+- Added RustDesk native access and Cloudflare-protected web portal, retaining
+  the unresolved browser WebSocket session as a separate task.
+- Recorded Home Assistant dashboard progress, browser/profile access recovery
+  with undetermined root cause, and pending SMART/storage and Bonsai experiments.
+- Reconciled the October operator-supplied Gluetun env-file reference and
+  qBittorrent healthy dependency. Did not include an unconfirmed health-check override.
+- Updated overview, architecture, diagrams, host notes, and roadmap. Earlier
+  AD enforcement and full Nextcloud recovery tasks retain their open status.
+
 ## 2026-10-05 — AD Progress and Nextcloud Deployment
 
 This entry consolidates work reported since the September update; it is the

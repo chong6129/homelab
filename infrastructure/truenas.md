@@ -6,6 +6,12 @@ directly to UCG Fiber SFP+ port 6 at 10 GbE through a DAC.
 
 ## Storage
 
+The November 6 planning record describes `protected` as a two-drive 4 TB Exos
+mirror and `staging` as the existing 8 TB SkyHawk media pool. Additional
+`media-extra` capacity was proposed while a 4 TB WD Red Plus extended SMART
+test was still running. No completed test or new pool is recorded; the table
+below therefore retains existing paths. See [storage planning](../docs/Operations.md#storage-expansion-pending).
+
 | Dataset or pool | Mount point | Purpose |
 |---|---|---|
 | `protected` | `/mnt/protected` | Application state, photos, VMs, and backups |
@@ -33,6 +39,10 @@ qBittorrent, Radarr, Sonarr, and Bazarr mount the dataset at `/data`. Keeping
 downloads and imported libraries in one ZFS dataset permits hardlink imports.
 
 ## Applications
+
+Jellyfin's November web customization and the October Gluetun update diagnosis
+are tracked in [media operations](jellyfin.md). Image versions below are the
+earlier inventory, not a fresh November version check.
 
 | Application | Image/version | Host port | Persistent storage |
 |---|---|---:|---|

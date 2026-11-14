@@ -24,14 +24,9 @@ services:
     restart: unless-stopped
     cap_add: [NET_ADMIN]
     devices: ["/dev/net/tun:/dev/net/tun"]
-    environment:
-      VPN_SERVICE_PROVIDER: nordvpn
-      SERVER_COUNTRIES: Canada
-      OPENVPN_PROTOCOL: udp
-      OPENVPN_USER: ${OPENVPN_USER}
-      OPENVPN_PASSWORD: ${OPENVPN_PASSWORD}
-      FIREWALL_INPUT_PORTS: "8080"
-      TZ: America/Toronto
+    # Operator-supplied configuration, 2026-10-28; contents remain host-local.
+    env_file:
+      - /mnt/protected/appdata/gluetun/gluetun.env
     ports:
       - "8080:8080"
       - "6881:6881/tcp"
@@ -65,7 +60,7 @@ services:
     network_mode: service:gluetun
     depends_on:
       gluetun:
-        condition: service_started
+        condition: service_healthy
     environment:
       <<: *lsio-env
       WEBUI_PORT: "8080"

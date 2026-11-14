@@ -20,6 +20,11 @@ Documentation for physical infrastructure and the role of each host.
 
 ## Supporting Services
 
+- [Wazuh / UniFi](wazuh.md) — tested security-event forwarding and decoder progress
+- [Jellyfin](jellyfin.md) — home-screen customization and media operations
+- [Paperless-ngx](paperless.md) — local AI metadata suggestions
+- [RustDesk](rustdesk.md) — native access and browser-client status
+- [Operations notes](../docs/Operations.md) — Home Assistant, browser incident, storage plans, and AI experiments
 - [Active Directory lab](active-directory.md) — DC01/DC02, LDAPS, renewal, and hardening status
 - [Nextcloud](nextcloud.md) — Ubuntu VM, proxy path, NFS storage, backups, and restore validation
 - [Caddy](caddy.md)

@@ -37,5 +37,10 @@ DC addresses fall inside the previously documented lab DHCP range; exclusion
 or reservation details need verification alongside the current network inventory.
 
 The UniFi label that previously identified `10.10.10.189` as Home Assistant was
-stale. That Home Assistant instance has been retired; the address belongs to
-Infra02. Home Assistant may be redeployed later.
+stale. The monitoring deployment assigned this address to Infra02. Home
+Assistant is in use again in the October dashboard notes, but its current
+host/IP was not captured; do not reuse the stale label as address evidence.
+
+The Paperless continuation notes identify Ollama at `10.10.10.249:11434`.
+November Jellyfin troubleshooting reports internal resolution to `10.10.10.4`;
+the Caddy host role needs reconciliation before adding a definitive inventory row.

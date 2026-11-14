@@ -1,6 +1,25 @@
 # Architecture Diagrams
 
-Logical service relationships recorded on 2026-10-05. These diagrams do not
+## November additions
+
+```text
+UCG Fiber -> Infra01 rsyslog -> Security/Audit CEF filter
+    -> Wazuh Agent -> Manager on Infra02 -> indexer -> dashboard
+    Indexed audit test: passed; extended decoder rollout: pending
+
+Paperless-ngx (Proxmox CT 104) -> AI integration -> Ollama 10.10.10.249:11434
+    Metadata suggestions: working; automatic application: pending
+
+RustDesk native client -> ID/relay service: working
+Browser -> Cloudflare Access/Tunnel -> RustDesk web UI: loads
+    Browser WebSocket remote-control session: unresolved
+```
+
+These are recorded logical relationships, not a complete network or firewall
+inventory. See [Wazuh](../infrastructure/wazuh.md),
+[Paperless](../infrastructure/paperless.md), and [RustDesk](../infrastructure/rustdesk.md).
+
+The following AD/Nextcloud relationships were recorded on 2026-10-05. They do not
 assert hypervisor placement or undocumented firewall rules.
 
 ## Active Directory

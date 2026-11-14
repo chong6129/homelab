@@ -101,5 +101,11 @@ recovery. A future isolated full recovery drill should test those together.
 
 ## Follow-up
 
+November browser tests identify the public hostname as `nc.longn.ca` and
+confirm it loaded after a full Brave restart with Bitwarden enabled. The
+associated browser/profile incident recovered, with root cause still unknown;
+see [operations notes](../docs/Operations.md). No newer backup or full-recovery
+test result was found during the November documentation review.
+
 See the [roadmap](../docs/Roadmap.md) for snapshot verification, the remaining
 sanitized inventory, 2FA, monitoring/log retention, and a full recovery drill.

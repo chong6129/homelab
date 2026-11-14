@@ -1,5 +1,10 @@
 # Caddy
 
+The November browser investigation reported Jellyfin resolving internally to
+`10.10.10.4`. The current Caddy host and network placement still need a
+sanitized inventory; older Infra01 references are not proof of current placement.
+Browser/profile recovery is documented in [operations notes](../docs/Operations.md).
+
 Caddy uses modular configuration with one file per application and a shared
 Cloudflare TLS snippet. Validate configuration with `caddy validate` before
 reloading a deployment change.

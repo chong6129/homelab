@@ -1,6 +1,7 @@
 # Host-local secrets and private backup artifacts
 .env
 .env.*
+*.env
 !.env.example
 config.php
 *.sql

@@ -20,6 +20,17 @@
 - Prometheus Graphite Exporter
 - Node Exporter
 
+## November Wazuh update
+
+The November 5–6 integration work identifies Infra02 as the Docker host used
+for Wazuh Manager testing. UniFi events forwarded by Infra01 reached the
+indexer/dashboard, with an audit test alert confirmed. The current Wazuh
+image/volume inventory and the final extended decoder rollout remain pending.
+See [Wazuh](wazuh.md) for the tested scope.
+
+A fresh host inventory should verify the current service list and persistence
+alongside the earlier monitoring deployment.
+
 ## Monitoring Role
 
 Infra02 owns the centralized monitoring stack and its persistent data. The

@@ -26,5 +26,8 @@ than deployed from these repository files. Their verified images, ports, and
 storage mounts are documented in
 [`infrastructure/truenas.md`](../infrastructure/truenas.md).
 
-The media-stack reference requires `OPENVPN_USER` and `OPENVPN_PASSWORD` at
-deployment time. Do not add their values to Git.
+The media-stack reference uses the operator-confirmed host-local Gluetun
+environment file and waits for Gluetun health before starting qBittorrent.
+The environment file must supply the VPN configuration and credentials; its
+contents are not committed. A proposed longer health-check grace period was
+not confirmed and is not included. See [media operations](../infrastructure/jellyfin.md).
